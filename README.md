@@ -12,6 +12,9 @@ A neighborhood map featuring a touch slideout navigation menu.
 
 ### Installation
 
+1. Download the zip file from github.
+2. A web server needs to be running.
+3. Open the index.html file in a brownser. 
 
 ### Resources
 
@@ -29,4 +32,4 @@ A neighborhood map featuring a touch slideout navigation menu.
 
 [Slideout Menu Codepen Example](http://codepen.io/cssguru/pen/eZyRaO)
 
-[Styling the Select Element}(http://www.lugolabs.com/articles/72-style-select-html-element-with-css)
+[Styling the Select Element](http://www.lugolabs.com/articles/72-style-select-html-element-with-css)

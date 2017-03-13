@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
 
@@ -37,21 +37,17 @@ value: selectedCategory"></select></div>
             <!-- /ko -->
         </ul>
     </div>
-
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/0.1.12/slideout.min.js"></script>
-<script src="oauth-signature.min.js"></script>
-<script src="viewmodel.js"></script>
-
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3">
-</script>
-<script src="madmap.js"></script>
-<script src="place.js"></script>
+<script src="js/oauth-signature.min.js"></script>
+<script src="js/viewmodel.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3"></script>
+<script src="js/madmap.js"></script>
+<script src="js/place.js"></script>
 <script>
 
     // Slideout Variable
@@ -118,20 +114,13 @@ value: selectedCategory"></select></div>
             cache: true,
             dataType: 'jsonp'
         }).done(function (response) {
-            console.log("response = " + response.rating_img_url + " yelp url = " + yelp_url);
             place.yelpRating = response.rating_img_url;
             place.yelpUrl = response.mobile_url;
-
-
         }).fail(function (response) {
             // If the ajax call fails, then the yelp data will not be displayed.
-
-            console.log("Ajax called failed: Data could not be retrieved from Yelp API");
-            console.log(yelp_url);
-            console.dir(response);
+            alert("Ajax called failed: Data could not be retrieved from Yelp API");
         });
     }
-
 
     var places = [
                 new Place({
@@ -189,8 +178,6 @@ value: selectedCategory"></select></div>
 
     // bind a new instance of our view model to the page
     ko.applyBindings(new ViewModel(places || []));
-
 </script>
-
 </body>
 </html>

@@ -50,5 +50,5 @@ var ViewModel = function (places) {
     return results;
 
   }, self);
-
 }
+

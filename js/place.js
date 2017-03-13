@@ -10,4 +10,3 @@ var Place = function (place) {
   this.yelpUrl = ko.observable(place.yelpUrl || '');
   this.activeItem = ko.observable(false);
 };
-

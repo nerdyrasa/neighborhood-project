@@ -3,7 +3,7 @@ function initMap() {
   var madisonCenter = {lat: 43.069352, lng: -89.396601};
 
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 20,
+    zoom: 14,
     center: madisonCenter
   });
 }
@@ -23,36 +23,31 @@ function initMarkers(locations) {
       animation: google.maps.Animation.DROP
     });
 
-
-
     locations[i].marker = marker;
 
     marker.addListener('click', (function (location) {
 
       return function () {
 
+        // First reset all items so no item in the list is active and then set the active item.
         for ( var i=0; i < locations.length; i++ ) {
           locations[i].activeItem(false);
         }
         location.activeItem(true);
 
-
         // if slideout is not open, then need to open it
-
         if (!slideoutLeft.isOpen()) {
           slideoutLeft.toggle();
         }
-
-
         populateInfoWindow(this, largeInfoWindow, location);
       };
     })(locations[i]));
 
     bounds.extend(new google.maps.LatLng(locations[i].location));
     // fit the map to the new marker
-    map.fitBounds(bounds);
+    //map.fitBounds(bounds);
     // center the map
-    map.setCenter(bounds.getCenter());
+    //map.setCenter(bounds.getCenter());
 
   }
 }
@@ -60,38 +55,37 @@ function initMarkers(locations) {
 function populateInfoWindow(currentMarker, infowindow, place) {
 
   var marker = place.marker;
+  console.log("Populate info window"); console.log(infowindow.marker); console.log(marker);
 
   // Check to make sure the info window is not already opened on this marker
   if (infowindow.marker != marker) {
     infowindow.marker = marker;
-    // look up the yelp rating if available
 
-    console.log("Populating the info window. The place is ", place);
-
-    var rating = place.yelpRating;
-    var yelpUrl = place.yelpUrl;
-
-    console.log('populating the window with a rating = ', rating);
-
-    console.log("The place is ", place);
-
+    // Only add the html if the item exists
     var imgTag = '',
       yelpLink = '';
-    if (rating)
-      imgTag = "<img src = ' " + rating + "' alt='Yelp Rating'/>";
-    if (yelpUrl)
-      yelpLink = "<a href='" + yelpUrl + "' target='_blank'><i class='fa fa-yelp'></i>Yelp Reviews</a>";
+    if (place.yelpRating.length > 0)
+      imgTag = "<img src = ' " + place.yelpRating + "' alt='Yelp Rating'/>";
+    if (place.yelpUrl.length > 0)
+      yelpLink = "<a href='" + place.yelpUrl + "' target='_blank'><i class='fa fa-yelp'></i>Yelp Reviews</a>";
 
-    infowindow.setContent("<div><h1>" + place.name + "</h1><p>" + place.category + "</p>" + imgTag + "<span class='yelp-link'>" + yelpLink + "</span></div>");
-
+    infowindow.setContent("<div><h1>"
+      + place.name
+      + "</h1><p>"
+      + place.category
+      + "</p>"
+      + imgTag
+      + "<span class='yelp-link'>"
+      + yelpLink
+      + "</span></div>");
 
     infowindow.open(map, marker);
+
     // make sure the marker property is cleared if the infowindow is closed
     infowindow.addListener('closeclick', function () {
-      //infoWindow.setMap(null);
       infowindow.setMarker = null;
       infowindow.marker = null;
-      console.log("Did a closeclick here", place);
+      // When the info window is closed, make sure that the item is no longer highlighted in the list.
       place.activeItem(false);
     })
   }
@@ -99,15 +93,13 @@ function populateInfoWindow(currentMarker, infowindow, place) {
 
 function filterMap(places, filtered) {
 
-  console.log("places = ", places);
+  // First clear all markers from the map
   for (var i = 0; i < places.length; i++) {
     places[i].marker.setMap(null);
   }
 
-  console.log("filtered = ", filtered);
+  // Add markers that correspond to the filtered category
   for (var i = 0; i < filtered.length; i++) {
     filtered[i].marker.setMap(map);
   }
 }
-
-
