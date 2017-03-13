@@ -17,6 +17,8 @@ A neighborhood map featuring a touch slideout navigation menu.
 
 [Knockout.js: Dynamic Javascript UIs with MVVM pattern](http://knockoutjs.com/)
 
+[Todomvc knockout example app](http://todomvc.com/examples/knockoutjs/)
+
 [Google Maps API](https://developers.google.com/maps/web/)
 
 [Yelp API v2](https://www.yelp.com/developers/documentation/v2/overview)
@@ -26,3 +28,5 @@ A neighborhood map featuring a touch slideout navigation menu.
 [Slideout.js: A touch slideout navigation menu for mobile web apps](https://slideout.js.org/)
 
 [Slideout Menu Codepen Example](http://codepen.io/cssguru/pen/eZyRaO)
+
+[Styling the Select Element}(http://www.lugolabs.com/articles/72-style-select-html-element-with-css)

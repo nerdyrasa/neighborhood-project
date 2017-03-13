@@ -4,6 +4,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neighborhood Map</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -17,17 +20,177 @@
 </section>
 
 <nav id="left-menu">
-    <!--Knockout List will go here -->
+    <div class="select">
+        <span class="arr"></span>
+        <select name="category" id="category" data-bind="options: categories,
+optionsCaption: 'All',
+value: selectedCategory"></select></div>
+    <div>
+        <ul>
+            <!-- ko foreach: filteredByCategory-->
+            <li data-bind="text: name,
+            css: { activeItemHighlight: activeItem  },
+            event: {click: $parent.processClickOnListItem }
+            ">
+
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
 
 </nav>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/0.1.12/slideout.min.js"></script>
-<script src="main.js"></script>
-<script src="madmap.js"></script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3&callback=initMap">
+<script src="oauth-signature.min.js"></script>
+<script src="viewmodel.js"></script>
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3">
 </script>
+<script src="madmap.js"></script>
+<script src="place.js"></script>
+<script>
+
+    // Slideout Variable
+    var slideoutLeft = new Slideout({
+        'panel': document.getElementById('panel'),
+        'menu': document.getElementById('left-menu'),
+        'padding': 256,
+        'tolerance': 70
+    });
+
+    console.log("slideoutLeft is ", slideoutLeft);
+
+    // Toggle button
+    $('#left-nav').click(function () {
+        slideoutLeft.toggle();
+    });
+
+    // Add event handler
+    slideoutLeft.on('beforeopen', function () {
+        document.querySelector('.fixed').classList.add('fixed-open-left');
+    });
+
+    // Add event handler
+    slideoutLeft.on('beforeclose', function () {
+        document.querySelector('.fixed').classList.remove('fixed-open-left');
+    });
+
+    function loadYelpData(places) {
+        for (var i = 0; i < places.length; i++) {
+            console.log("*** Loading yelp data *** yelp id = ", places[i].yelpId);
+            getYelpInfo(places[i]);
+        }
+    }
+
+    function getYelpInfo(place) {
+
+        function nonce_generate() {
+            return (Math.floor(Math.random() * 1e12).toString());
+        }
+
+        var YELP_KEY = "Zwcl1st6vGfHoXGgOe6YKA",  // goes into parameters variable
+                YELP_TOKEN = "uOEA_bV6OnwIlsQ2Am2vt-cy8Agjmt11", // goes into parameters variable
+                YELP_KEY_SECRET = "eWwJXkpiSzV83uz-oetgkaZEt6M",  // goes into oauthSignature.generate() method
+                YELP_TOKEN_SECRET = "FSyNzwQFbBtId5RE4By7Ziy2mIU"; // goes into oauthSignature.generate() method
+
+        var parameters = {
+            oauth_consumer_key: YELP_KEY,
+            oauth_token: YELP_TOKEN,
+            oauth_nonce: nonce_generate(),
+            oauth_timestamp: Math.floor(Date.now() / 1000),
+            oauth_signature_method: 'HMAC-SHA1',
+            oauth_version: '1.0',
+            callback: 'cb'
+        };
+
+        var yelp_url = 'https://api.yelp.com/v2/business/' + place.yelpId;
+
+        parameters.oauth_signature = oauthSignature.generate('GET', yelp_url, parameters,
+                YELP_KEY_SECRET, YELP_TOKEN_SECRET);
+
+        $.ajax({
+            url: yelp_url,
+            data: parameters,
+            cache: true,
+            dataType: 'jsonp'
+        }).done(function (response) {
+            console.log("response = " + response.rating_img_url + " yelp url = " + yelp_url);
+            place.yelpRating = response.rating_img_url;
+            place.yelpUrl = response.mobile_url;
+
+
+        }).fail(function (response) {
+            // If the ajax call fails, then the yelp data will not be displayed.
+
+            console.log("Ajax called failed: Data could not be retrieved from Yelp API");
+            console.log(yelp_url);
+            console.dir(response);
+        });
+    }
+
+
+    var places = [
+                new Place({
+                    "category": "Food",
+                    "name": "Dotty Dumpling's Dowry",
+                    "location": {
+                        "lat": 43.072829,
+                        "lng": -89.401329
+                    },
+                    "yelpId": "dotty-dumplings-dowry-madison"
+                }),
+                new Place({
+                    "category": "Attraction",
+                    "name": "Madison Children's Museum",
+                    "location": {
+                        "lat": 43.076674,
+                        "lng": -89.384438
+                    },
+                    "yelpId": "madison-childrens-museum-madison"
+                }),
+                new Place({
+                    "category": "Food",
+                    "name": "Paisan's Restaurant",
+                    "location": {
+                        "lat": 43.070682,
+                        "lng": -89.383026
+                    },
+                    "yelpId": "paisans-madison"
+                }),
+                new Place({
+                    "category": "Food",
+                    "name": "Graze",
+                    "location": {
+                        "lat": 43.075617,
+                        "lng": -89.382206
+                    },
+                    "yelpId": "graze-madison"
+                }),
+                new Place({
+                    "category": "Attraction",
+                    "name": "Camp Randall Stadium",
+                    "location": {
+                        "lat": 43.069897,
+                        "lng": -89.412772
+                    },
+                    "yelpId": "camp-randall-stadium-madison-2"
+                })
+            ],
+            map = undefined,
+            largeInfoWindow = undefined;
+
+    initMap();
+    initMarkers(places);
+    loadYelpData(places);
+
+    // bind a new instance of our view model to the page
+    ko.applyBindings(new ViewModel(places || []));
+
+</script>
+
 </body>
 </html>
