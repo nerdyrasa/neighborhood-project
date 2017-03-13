@@ -1,0 +1,207 @@
+/* =======================================================================
+/* Normalize
+========================================================================== */
+html {
+    font-family: sans-serif;
+}
+body {
+    margin: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+}
+/* -------------------------------------------- */
+/* Hamburger Icon
+/* -------------------------------------------- */
+
+/* -------------------------------------------- */
+/* Toggle Switch Globals
+/* -------------------------------------------- */
+.hamburger-icon {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 60px;
+    height: 60px;
+    font-size: 0;
+    text-indent: -9999px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    border: none;
+    cursor: pointer;
+    -webkit-transition: background 0.3s;
+    transition: background 0.3s; }
+.hamburger-icon:focus {
+    outline: none; }
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    top: 29px;
+    left: 24px;
+    right: 24px;
+    height: 2px; }
+.hamburger-icon span::before,
+.hamburger-icon span::after {
+    position: absolute;
+    display: block;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    content: ""; }
+.hamburger-icon span::before {
+    top: -4px; }
+.hamburger-icon span::after {
+    bottom: -4px; }
+
+/* -------------------------------------------- */
+/* Hamburger Icon to (X) Close Icon
+/* -------------------------------------------- */
+.htx span {
+    -webkit-transition: background 0s 0.3s;
+    transition: background 0s 0.3s; }
+.htx span::before,
+.htx span::after {
+    -webkit-transition-duration: 0.3s, 0.3s;
+    transition-duration: 0.3s, 0.3s;
+    -webkit-transition-delay: 0.3s, 0s;
+    transition-delay: 0.3s, 0s; }
+.htx span::before {
+    -webkit-transition-property: top, -webkit-transform;
+    transition-property: top, -webkit-transform;
+    transition-property: top, transform;
+    transition-property: top, transform, -webkit-transform; }
+.htx span::after {
+    -webkit-transition-property: bottom, -webkit-transform;
+    transition-property: bottom, -webkit-transform;
+    transition-property: bottom, transform;
+    transition-property: bottom, transform, -webkit-transform; }
+
+/* =======================================================================
+  Left Nav - active state, i.e. menu open
+========================================================================= */
+
+html.slideout-open .fixed-open-left #left-nav.hamburger-icon.htx span {
+    background: none; }
+html.slideout-open .fixed-open-left #left-nav.hamburger-icon.htx span::before {
+    top: 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg); }
+html.slideout-open .fixed-open-left #left-nav.hamburger-icon.htx span::after {
+    bottom: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg); }
+html.slideout-open .fixed-open-left #left-nav.hamburger-icon.htx span::before,
+html.slideout-open .fixed-open-left #left-nav.hamburger-icon.htx span::after {
+    -webkit-transition-delay: 0s, 0.3s;
+    transition-delay: 0s, 0.3s; }
+
+/* =======================================================================
+   Right Nav - active state, i.e. menu open
+========================================================================== */
+
+html.slideout-open .fixed-open-right #right-nav.hamburger-icon.htx span {
+    background: none; }
+html.slideout-open .fixed-open-right #right-nav.hamburger-icon.htx span::before {
+    top: 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg); }
+html.slideout-open .fixed-open-right #right-nav.hamburger-icon.htx span::after {
+    bottom: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg); }
+html.slideout-open .fixed-open-right #right-nav.hamburger-icon.htx span::before,
+html.slideout-open .fixed-open-right #right-nav.hamburger-icon.htx span::after {
+    -webkit-transition-delay: 0s, 0.3s;
+    transition-delay: 0s, 0.3s; }
+
+/* =======================================================================
+   Header Styles
+========================================================================== */
+
+#header-nav {
+    height: 60px;
+    width: 100%; }
+#header-nav .logo {
+    left: 50%;
+    margin-left: -55px;
+    position: absolute; }
+
+.header-dark {
+    background-color: #2c3e50; }
+.header-dark .hamburger-icon span,
+.header-dark .hamburger-icon span::before,
+.header-dark .hamburger-icon span::after {
+    background-color: #fff; }
+
+
+/* =======================================================================
+  Slideout Styles
+========================================================================== */
+
+#left-nav {
+    float: left;
+}
+
+.slideout-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+    width: 256px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: none;
+    background: #eee;
+}
+.slideout-panel {
+    position: relative;
+    z-index: 1;
+}
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+    overflow: hidden;
+}
+.slideout-open .slideout-menu {
+    display: block;
+}
+
+.fixed {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: fixed;
+    z-index: 2;
+    -webkit-transition: -webkit-transform 300ms ease;
+    transition: -webkit-transform 300ms ease;
+    transition: transform 300ms ease;
+    transition: transform 300ms ease, -webkit-transform 300ms ease; }
+.fixed.fixed-open-left {
+    -webkit-transform: translate3d(256px, 0px, 0px);
+    transform: translate3d(256px, 0px, 0px); }
+.fixed.fixed-open-right {
+    -webkit-transform: translate3d(-256px, 0px, 0px);
+    transform: translate3d(-256px, 0px, 0px); }
+
+.page-wrapper {
+    padding: 60px 0 0;
+    background-color: #fff;
+}
+
+/* =======================================================================
+  Map
+========================================================================== */
+
+#map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

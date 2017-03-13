@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighborhood Map</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<header id="header-nav" class="header-dark fixed">
+    <a href="#left-nav" id="left-nav" class="hamburger-icon htx"><span></span></a>
+</header>
+
+<section id="panel" class="page-wrapper">
+    <div id="map"></div>
+</section>
+
+<nav id="left-menu">
+    <!--Knockout List will go here -->
+
+</nav>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/0.1.12/slideout.min.js"></script>
+<script src="main.js"></script>
+<script src="madmap.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3&callback=initMap">
+</script>
+</body>
+</html>
