@@ -1,5 +1,6 @@
-<html lang="en">
-<head>
+<!DOCTYPE html>
+<html>
+<head lang="en">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,15 +12,16 @@
 </head>
 <body>
 
-<header id="header-nav" class="header-dark fixed">
-    <a href="#left-nav" id="left-nav" class="hamburger-icon htx"><span></span></a>
-</header>
 
-<section id="panel" class="page-wrapper">
+
+<section id="panel">
+    <header id="header-nav" class="header-dark fixed">
+        <a href="#left-nav" id="left-nav"><i class="fa fa-bars fa-2x hamburger-icon" aria-hidden="true"></i></a>
+    </header>
     <div id="map"></div>
 </section>
 
-<nav id="left-menu">
+<nav id="menu">
     <div class="select">
         <span class="arr"></span>
         <select name="category" id="category" data-bind="options: categories,
@@ -51,28 +53,18 @@ value: selectedCategory"></select></div>
 <script>
 
     // Slideout Variable
-    var slideoutLeft = new Slideout({
+    var slideout = new Slideout({
         'panel': document.getElementById('panel'),
-        'menu': document.getElementById('left-menu'),
+        'menu': document.getElementById('menu'),
         'padding': 256,
         'tolerance': 70
     });
 
-    console.log("slideoutLeft is ", slideoutLeft);
+    console.log("slideout is ", slideout);
 
     // Toggle button
     $('#left-nav').click(function () {
-        slideoutLeft.toggle();
-    });
-
-    // Add event handler
-    slideoutLeft.on('beforeopen', function () {
-        document.querySelector('.fixed').classList.add('fixed-open-left');
-    });
-
-    // Add event handler
-    slideoutLeft.on('beforeclose', function () {
-        document.querySelector('.fixed').classList.remove('fixed-open-left');
+        slideout.toggle();
     });
 
     function loadYelpData(places) {
