@@ -36,8 +36,8 @@ function initMarkers(locations) {
         location.activeItem(true);
 
         // if slideout is not open, then need to open it
-        if (!slideoutLeft.isOpen()) {
-          slideoutLeft.toggle();
+        if (!slideout.isOpen()) {
+          slideout.toggle();
         }
         populateInfoWindow(this, largeInfoWindow, location);
       };
