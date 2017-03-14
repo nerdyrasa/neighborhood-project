@@ -92,12 +92,12 @@ function filterMap(places, filtered) {
 
   // First clear all markers from the map
   for (var i = 0; i < places.length; i++) {
-    places[i].marker.setMap(null);
+    places[i].marker.setVisible(false);
   }
 
   // Add markers that correspond to the filtered category
   for (var i = 0; i < filtered.length; i++) {
-    filtered[i].marker.setMap(map);
+    filtered[i].marker.setVisible(true);
   }
 }
 
