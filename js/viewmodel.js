@@ -22,10 +22,6 @@ var ViewModel = function (places) {
     // Set the selected item as the active item
     this.activeItem(true);
 
-    // Show the corresponding info window on the map
-    //populateInfoWindow(place.marker, largeInfoWindow, place);
-
-
     google.maps.event.trigger(place.marker, 'click');
   };
 
@@ -65,9 +61,9 @@ var ViewModel = function (places) {
       'tolerance': 70
     });
     document.getElementById('category-select').classList = 'select show-select';
-  }
+  };
 
   self.init();
 
-}
+};
 

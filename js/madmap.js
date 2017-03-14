@@ -29,11 +29,10 @@ function initMarkers(locations) {
 
       return function () {
 
-
-
         // First reset all items so no item in the list is active and then set the active item.
         for ( var i=0; i < locations.length; i++ ) {
           locations[i].activeItem(false);
+          locations[i].marker.setAnimation(null);
         }
         location.activeItem(true);
 
@@ -41,8 +40,14 @@ function initMarkers(locations) {
         if (!vm.slideout.isOpen()) {
           vm.slideout.toggle();
         }
-        populateInfoWindow(this, largeInfoWindow, location);
 
+        populateInfoWindow(largeInfoWindow, location);
+
+        if (location.marker.getAnimation() !== null) {
+          location.marker.setAnimation(null);
+        } else {
+          location.marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
       };
     })(locations[i]));
 
@@ -50,7 +55,7 @@ function initMarkers(locations) {
   }
 }
 
-function populateInfoWindow(currentMarker, infowindow, place) {
+function populateInfoWindow(infowindow, place) {
 
   var marker = place.marker;
 
@@ -82,9 +87,12 @@ function populateInfoWindow(currentMarker, infowindow, place) {
     infowindow.addListener('closeclick', function () {
       infowindow.setMarker = null;
       infowindow.marker = null;
-      // When the info window is closed, make sure that the item is no longer highlighted in the list.
+
+      // When the info window is closed, make sure that the item is no longer highlighted in the list and
+      // stop animation.
       place.activeItem(false);
-    })
+      place.marker.setAnimation(null);
+    });
   }
 }
 
@@ -100,4 +108,3 @@ function filterMap(places, filtered) {
     filtered[i].marker.setVisible(true);
   }
 }
-
