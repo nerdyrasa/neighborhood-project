@@ -33,3 +33,5 @@ A neighborhood map featuring a touch slideout navigation menu.
 [Slideout Menu Codepen Example](http://codepen.io/cssguru/pen/eZyRaO)
 
 [Styling the Select Element](http://www.lugolabs.com/articles/72-style-select-html-element-with-css)
+
+[jQuery Async Google Maps](http://codepen.io/SittingFox/pen/BoREqP)

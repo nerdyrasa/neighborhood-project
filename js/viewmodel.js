@@ -23,12 +23,14 @@ var ViewModel = function (places) {
     this.activeItem(true);
 
     // Show the corresponding info window on the map
-    populateInfoWindow(place.marker, largeInfoWindow, place);
+    //populateInfoWindow(place.marker, largeInfoWindow, place);
 
+
+    google.maps.event.trigger(place.marker, 'click');
   };
 
   self.toggleLeftNav = function() {
-    slideout.toggle();
+    self.slideout.toggle();
   };
 
   self.filteredByCategory = ko.computed(function () {
@@ -54,5 +56,18 @@ var ViewModel = function (places) {
     return results;
 
   }, self);
+
+  self.init = function () {
+    self.slideout = new Slideout({
+      'panel': document.getElementById('panel'),
+      'menu': document.getElementById('menu'),
+      'padding': 256,
+      'tolerance': 70
+    });
+    document.getElementById('category-select').classList = 'select show-select';
+  }
+
+  self.init();
+
 }
 

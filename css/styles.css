@@ -91,10 +91,12 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
+    background-color: #63b9ff;
 }
 
 ul {
     list-style-type: none;
+    padding: 20px 0 0 0;
 }
 
 li {
@@ -118,7 +120,7 @@ li:hover {
 }
 
 .select {
-    font-size: 16px;
+    font-size: 1.25em;
     position: relative;
     display: inline-block;
     width: 100%
@@ -141,6 +143,7 @@ li:hover {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    font-weight: bold;
     width: 100%
 }
 
@@ -181,4 +184,12 @@ li:hover {
 .yelp-link {
     display: inline-block;
     margin-left: 20px;
+}
+
+.hide {
+    display: none;
+}
+
+.show-select {
+    display: block;
 }

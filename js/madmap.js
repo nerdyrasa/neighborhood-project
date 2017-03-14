@@ -29,6 +29,8 @@ function initMarkers(locations) {
 
       return function () {
 
+
+
         // First reset all items so no item in the list is active and then set the active item.
         for ( var i=0; i < locations.length; i++ ) {
           locations[i].activeItem(false);
@@ -36,26 +38,21 @@ function initMarkers(locations) {
         location.activeItem(true);
 
         // if slideout is not open, then need to open it
-        if (!slideout.isOpen()) {
-          slideout.toggle();
+        if (!vm.slideout.isOpen()) {
+          vm.slideout.toggle();
         }
         populateInfoWindow(this, largeInfoWindow, location);
+
       };
     })(locations[i]));
 
     bounds.extend(new google.maps.LatLng(locations[i].location));
-    // fit the map to the new marker
-    //map.fitBounds(bounds);
-    // center the map
-    //map.setCenter(bounds.getCenter());
-
   }
 }
 
 function populateInfoWindow(currentMarker, infowindow, place) {
 
   var marker = place.marker;
-  console.log("Populate info window"); console.log(infowindow.marker); console.log(marker);
 
   // Check to make sure the info window is not already opened on this marker
   if (infowindow.marker != marker) {
@@ -103,3 +100,4 @@ function filterMap(places, filtered) {
     filtered[i].marker.setMap(map);
   }
 }
+
