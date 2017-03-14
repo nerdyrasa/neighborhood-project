@@ -106,7 +106,9 @@ li:hover {
 }
 
 .activeItemHighlight {
-    background-color: #67ecff;
+    background-color: #63b9ff;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 /*Styling the select*/

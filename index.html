@@ -46,7 +46,9 @@ value: selectedCategory"></select></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/0.1.12/slideout.min.js"></script>
 <script src="js/oauth-signature.min.js"></script>
 <script src="js/viewmodel.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3&callback=initialize">
+</script>
 <script src="js/madmap.js"></script>
 <script src="js/place.js"></script>
 <script>
@@ -156,12 +158,15 @@ value: selectedCategory"></select></div>
             map = undefined,
             largeInfoWindow = undefined;
 
-    initMap();
-    initMarkers(places);
-    loadYelpData(places);
 
-    // bind a new instance of our view model to the page
-    ko.applyBindings(new ViewModel(places || []));
+    function initialize() {
+        initMap();
+        initMarkers(places);
+        loadYelpData(places);
+        ko.applyBindings(new ViewModel(places || []));
+    }
+
+
 </script>
 </body>
 </html>
