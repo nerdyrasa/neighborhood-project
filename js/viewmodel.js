@@ -27,6 +27,10 @@ var ViewModel = function (places) {
 
   };
 
+  self.toggleLeftNav = function() {
+    slideout.toggle();
+  };
+
   self.filteredByCategory = ko.computed(function () {
 
     // If the info window is open when a filter is selected, close the window.
