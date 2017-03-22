@@ -1,5 +1,3 @@
-var googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBwPVLHkMHn3e7BX0MzQHLki_efPdTX35c&v=3&callback=initialize";
-
 var places = [
     new Place({
       "category": "Food",
@@ -54,17 +52,12 @@ var places = [
 function initialize() {
   initMap();
   initMarkers(places);
+  loadYelpData(places);
+  vm = new ViewModel(places || []);
+  ko.applyBindings(vm);
 }
 
-$.getScript(googleMapsUrl)
-  // if getting the script is successful
-  .done(function () {
-    loadYelpData(places);
-    vm = new ViewModel(places || []);
-    ko.applyBindings(vm);
-  })
-  // if getting the script fails
-  .fail(function () {
-    var message = "The internet is broken. Please try again later.";
-    alert(message);
-  });
+function mapError() {
+  var message = "The internet is broken. Please try again later.";
+  alert(message);
+}
