@@ -43,11 +43,6 @@ function initMarkers(locations) {
 
         populateInfoWindow(largeInfoWindow, location);
 
-        if (location.marker.getAnimation() !== null) {
-          location.marker.setAnimation(null);
-        } else {
-          location.marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
       };
     })(locations[i]));
 
@@ -66,10 +61,12 @@ function populateInfoWindow(infowindow, place) {
     // Only add the html if the item exists
     var imgTag = '',
       yelpLink = '';
-    if (place.yelpRating.length > 0)
+    if (place.yelpRating.length > 0) {
       imgTag = "<img src = ' " + place.yelpRating + "' alt='Yelp Rating'/>";
-    if (place.yelpUrl.length > 0)
+    }
+    if (place.yelpUrl.length > 0) {
       yelpLink = "<a href='" + place.yelpUrl + "' target='_blank'><i class='fa fa-yelp'></i>Yelp Reviews</a>";
+    }
 
     infowindow.setContent("<div><h1>"
       + place.name
